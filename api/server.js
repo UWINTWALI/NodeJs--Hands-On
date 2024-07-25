@@ -86,6 +86,9 @@ app.post('/api/login', async (req, res) => {
             if (err) return res.status(500).json("Database query error");
             if (data.length === 0) return res.status(404).json("User not found");
 
+            // req.body.password: The plaintext password entered by the user
+            // data[0].password: The hashed password retrieved from the database.
+
             const isPasswordValid = bcrypt.compareSync(req.body.password, data[0].password);
             if (!isPasswordValid) return res.status(400).json("Invalid username or password");
 
